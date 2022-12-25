@@ -65,7 +65,13 @@ export default {
       }
     }
   },
+  computed: {
+    page() {
+      return this.$route.query.page
+    }
+  },
   mounted() {
+    this.paginate.page = this.page
     this.getAds()
   },
   methods: {
