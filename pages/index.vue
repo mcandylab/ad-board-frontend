@@ -41,6 +41,13 @@
         </nuxt-link>
       </a-card>
     </div>
+    <a-pagination
+      v-if="ads.length"
+      :default-current="paginate.page"
+      :total="paginate.total"
+      :page-size.sync="paginate.perPage"
+      @change="handlePaginate"
+    />
   </div>
 </template>
 
@@ -65,12 +72,16 @@ export default {
     getAds() {
       this.loading = true
       this.$axios
-        .get("/ads")
+        .get(`/ads?page=${this.paginate.page}`)
         .then(({ data }) => {
           this.ads = data.data
           this.paginate.page = data.current_page
           this.paginate.perPage = data.per_page
           this.paginate.total = data.total
+          this.$router.push({
+            path: this.$route.path,
+            query: { page: this.paginate.page }
+          })
         })
         .catch((error) => {
           this.$message.error(error.response.data.message)
@@ -78,6 +89,10 @@ export default {
         .finally(() => {
           this.loading = false
         })
+    },
+    handlePaginate(page) {
+      this.paginate.page = page
+      this.getAds()
     }
   }
 }
@@ -86,6 +101,7 @@ export default {
 <style scoped>
 .ad-grid {
   margin-top: 15px;
+  margin-bottom: 15px;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 15px;

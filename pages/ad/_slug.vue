@@ -12,6 +12,7 @@
       <a-button>Вернуться назад</a-button>
     </nuxt-link>
     <h1>{{ ad.name }}</h1>
+    <p>Создал: {{ ad.user?.name }}</p>
     <div
       :style="{
         marginTop: '15px',
