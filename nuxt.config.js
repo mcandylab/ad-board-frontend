@@ -1,3 +1,5 @@
+require("dotenv").config()
+
 export default {
   ssr: false,
   target: "server",
@@ -22,12 +24,17 @@ export default {
   plugins: ["@/plugins/antd-ui"],
   components: true,
   buildModules: ["@nuxtjs/eslint-module"],
-  modules: ["@nuxtjs/axios", "@nuxtjs/auth-next", "@nuxtjs/proxy"],
+  modules: [
+    "@nuxtjs/axios",
+    "@nuxtjs/auth-next",
+    "@nuxtjs/proxy",
+    "@nuxtjs/dotenv"
+  ],
   axios: {
     baseURL: "/api"
   },
   proxy: {
-    "/api": "http://127.0.0.1:8000"
+    "/api": process.env.BACKEND_URL || "http://127.0.0.1:8000"
   },
   router: {
     middleware: ["auth"]
