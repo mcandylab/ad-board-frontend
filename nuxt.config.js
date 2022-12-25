@@ -14,7 +14,11 @@ export default {
     ],
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
   },
-  css: ["ant-design-vue/dist/antd.css", "~assets/css/main.css"],
+  css: [
+    "ant-design-vue/dist/antd.css",
+    "~assets/css/normalize.css",
+    "~assets/css/main.css"
+  ],
   plugins: ["@/plugins/antd-ui"],
   components: true,
   buildModules: ["@nuxtjs/eslint-module"],
