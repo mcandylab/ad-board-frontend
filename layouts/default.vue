@@ -36,6 +36,7 @@ export default {
   background: white;
   padding: 15px 0 15px 0;
   margin-bottom: 15px;
+  border-bottom: 1px solid #e8e8e8;
 }
 
 .navigation__items {
