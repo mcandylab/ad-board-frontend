@@ -2,7 +2,7 @@ export default {
   ssr: false,
   target: "server",
   head: {
-    title: "frontend",
+    title: "Ad Board",
     htmlAttrs: {
       lang: "ru"
     },
@@ -14,13 +14,42 @@ export default {
     ],
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
   },
-  css: ["ant-design-vue/dist/antd.css"],
+  css: ["ant-design-vue/dist/antd.css", "~assets/css/main.css"],
   plugins: ["@/plugins/antd-ui"],
   components: true,
   buildModules: ["@nuxtjs/eslint-module"],
-  modules: ["@nuxtjs/axios"],
+  modules: ["@nuxtjs/axios", "@nuxtjs/auth-next", "@nuxtjs/proxy"],
   axios: {
-    baseURL: "/"
+    baseURL: "/api"
+  },
+  proxy: {
+    "/api": "http://127.0.0.1:8000"
+  },
+  router: {
+    middleware: ["auth"]
+  },
+  auth: {
+    strategies: {
+      local: {
+        user: {
+          property: ""
+        },
+        token: {
+          property: "token",
+          type: "Bearer"
+        },
+        endpoints: {
+          login: { url: "/login", method: "post" },
+          logout: { url: "/logout", method: "post" },
+          user: { url: "/user", method: "get" }
+        }
+      }
+    },
+    redirect: {
+      login: "/login",
+      logout: "/login",
+      home: "/"
+    }
   },
   build: {}
 }

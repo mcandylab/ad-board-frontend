@@ -1,11 +1,12 @@
 <template>
   <div>
-    <p>Hello</p>
+    <p>Default</p>
+    <nuxt />
   </div>
 </template>
 
 <script>
 export default {
-  name: "IndexPage"
+  name: "Auth"
 }
 </script>
