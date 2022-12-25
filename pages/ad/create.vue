@@ -99,7 +99,9 @@ export default {
 
       this.$axios
         .post("/ads", data)
-        .then()
+        .then(() => {
+          this.$router.push({ name: "index" })
+        })
         .catch((error) => {
           this.$message.error(error.response.data.message)
           if (error.response.status === 422 && error.response.data.errors) {

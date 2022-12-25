@@ -4,8 +4,41 @@
       <a-button type="primary">Создать объявление</a-button>
     </nuxt-link>
     <div class="ad-grid">
-      <a-card v-for="ad in ads" :key="ad.id">
-        <p>Hello</p>
+      <a-card
+        v-for="ad in ads"
+        :key="ad.id"
+        :body-style="{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '5px',
+          alignItems: 'stretch',
+          justifyContent: 'space-between',
+          height: '100%'
+        }"
+      >
+        <div
+          :style="{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '5px'
+          }"
+        >
+          <div
+            :style="{
+              backgroundImage: `url(${ad.media[0].original_url})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              width: '100%',
+              height: '200px',
+              borderRadius: '5px'
+            }"
+          />
+          <p :style="{ fontWeight: 600 }">{{ ad.name }}</p>
+          <p>Создал: {{ ad.user.name }}</p>
+        </div>
+        <nuxt-link :to="{ name: 'ad-slug', params: { slug: ad.slug } }">
+          <a-button>Перейти</a-button>
+        </nuxt-link>
       </a-card>
     </div>
   </div>
@@ -52,6 +85,7 @@ export default {
 
 <style scoped>
 .ad-grid {
+  margin-top: 15px;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 15px;
